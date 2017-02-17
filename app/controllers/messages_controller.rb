@@ -1,7 +1,20 @@
 class MessagesController < ApplicationController
-  before_action :set_message, only: [:edit, :update]
+  before_action :set_message, only: [:edit, :update, :destroy]
   
-  # 中略
+  def index
+    @message = Message.new
+    @messages = Message.all
+  end
+  
+  def create
+    @message = Message.new(message_params)
+    if @message.save
+      redirect_to root_path, notice: 'メッセージを投稿しました'
+    else
+      @messages = Message.all
+      render 'index'
+    end
+  end
 
   def edit
   end
@@ -16,13 +29,18 @@ class MessagesController < ApplicationController
     end
   end
 
-  # 中略
+  def destroy
+    @message.destroy
+    redirect_to root_path
+  end
 
   private
 
-  # 中略
-
   def set_message
     @message = Message.find(params[:id])
+  end
+  
+  def message_params
+    params.require(:message).permit(:name, :body)
   end
 end
