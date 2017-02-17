@@ -1,22 +1,11 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    メッセージ一覧
+<form class="new_message" id="new_message" action="/messages" accept-charset="UTF-8" method="post">
+  <div class="form-group">
+    <label for="exampleInputName2">名前</label>
+    <input type="text" class="form-control" id="exampleInputName2">
   </div>
-    
-  <div class="panel-body">
-    <% @messages.each do |message| %>
-      <span class="label label-info"><%= message.name %></span>
-      <%= message.body %>
-      <br>
-    <% end %>
+  <div class="form-group">
+    <label for="exampleInputEmail2">内容</label>
+    <input type="email" class="form-control" id="exampleInputEmail2">
   </div>
-</div>
-
-<%= form_for(@message) do |f| %>
-  名前:
-  <%= f.text_field :name %>
-
-  内容:
-  <%= f.text_field :body %>
-  <%= f.submit class: "btn btn-sm btn-primary" %>
-<% end %>
+<button type="submit" class="btn btn-primary">Create Message</button>  
+</form>
